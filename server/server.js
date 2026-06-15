@@ -11,9 +11,7 @@ const { authenticateToken } = require('./middleware/auth');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+
 // Middleware — CORS must be registered before API routes
 app.use(cors());
 app.use(express.json());
@@ -95,7 +93,7 @@ app.delete('/api/products/:id', authenticateToken, async (req, res) => {
   }
 });
 
-// Start server
+// Start server (Only called once at the end)
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
