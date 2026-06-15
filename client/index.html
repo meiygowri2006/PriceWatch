@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PriceWatch Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
+          </svg>
+        </div>
+        <span class="brand-name">PriceWatch</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button type="button" class="nav-link active" data-view="dashboard">Dashboard</button>
+        <button type="button" class="nav-link" data-view="overview">Overview</button>
+        <button type="button" class="nav-link" data-view="wallet">Wallet</button>
+        <button type="button" class="nav-link" data-view="profile">Profile</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button type="button" id="logout-btn" class="btn-logout">Sign Out</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <!-- Dashboard -->
+      <section id="view-dashboard" class="view active">
+        <header class="page-header">
+          <h1>Dashboard</h1>
+          <p>Welcome back, <span id="dashboard-username">User</span></p>
+        </header>
+        <div class="card welcome-card">
+          <h2>Your Price Tracking Hub</h2>
+          <p>Monitor e-commerce prices, set target alerts, and manage all your tracked products from one place.</p>
+          <button type="button" class="btn-primary nav-jump" data-view="overview">Go to Overview</button>
+        </div>
+      </section>
+
+      <!-- Overview -->
+      <section id="view-overview" class="view">
+        <header class="page-header">
+          <h1>Overview</h1>
+          <p>Quick actions to manage your trackers</p>
+        </header>
+        <div class="action-cards">
+          <button type="button" class="action-card" id="btn-create-tracker">
+            <div class="action-card-icon create">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </div>
+            <h3>Create a New Tracker</h3>
+            <p>Add a product URL and set your target price</p>
+          </button>
+          <button type="button" class="action-card" id="btn-existing-trackers">
+            <div class="action-card-icon wallet">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+            </div>
+            <h3>Existing Trackers</h3>
+            <p>View and manage your tracked products</p>
+          </button>
+        </div>
+      </section>
+
+      <!-- Tracker Form -->
+      <section id="view-tracker-form" class="view">
+        <header class="page-header">
+          <h1>New Tracker</h1>
+          <p>Add a product to start monitoring its price</p>
+        </header>
+        <div class="card">
+          <form id="track-form">
+            <div class="form-group">
+              <label for="product_name">Product Name</label>
+              <input type="text" id="product_name" placeholder="e.g., Wireless Headphones" required>
+            </div>
+            <div class="form-group">
+              <label for="product_url">Product URL</label>
+              <input type="url" id="product_url" placeholder="https://ecommerce-site.com/product..." required>
+            </div>
+            <div class="form-group">
+              <label for="target_price">Target Price (₹)</label>
+              <input type="number" id="target_price" step="0.01" placeholder="e.g., 1499.00" required>
+            </div>
+            <button type="submit" class="btn-primary">Start Tracking</button>
+          </form>
+          <div id="form-message" class="message"></div>
+        </div>
+      </section>
+
+      <!-- Wallet -->
+      <section id="view-wallet" class="view">
+        <header class="page-header">
+          <h1>Wallet</h1>
+          <p>Your tracked products</p>
+        </header>
+        <div class="card">
+          <div id="products-grid" class="products-grid" role="list">
+            <p class="empty-state">No products tracked yet. Create a new tracker to get started!</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Profile -->
+      <section id="view-profile" class="view">
+        <header class="page-header">
+          <h1>Profile</h1>
+          <p>Manage your account details</p>
+        </header>
+        <div class="card profile-card">
+          <div class="profile-avatar-display" id="profile-avatar-display">
+            <div class="profile-avatar-circle" aria-hidden="true"></div>
+          </div>
+          <div class="profile-details">
+            <div class="profile-field">
+              <span class="profile-label">Username</span>
+              <span class="profile-value" id="profile-username">—</span>
+            </div>
+            <div class="profile-field">
+              <span class="profile-label">Email</span>
+              <span class="profile-value" id="profile-email">—</span>
+            </div>
+          </div>
+          <div class="avatar-picker">
+            <p class="avatar-picker-label">Choose your avatar</p>
+            <div class="avatar-options">
+              <button type="button" class="avatar-option" data-avatar="male" aria-label="Male avatar">
+                <svg viewBox="0 0 80 80" class="avatar-svg"><circle cx="40" cy="40" r="40" fill="#E8FBF0"/><circle cx="40" cy="32" r="14" fill="#00684A"/><path d="M16 72c4-16 16-24 24-24s20 8 24 24" fill="#00684A"/></svg>
+                <span>Male</span>
+              </button>
+              <button type="button" class="avatar-option" data-avatar="female" aria-label="Female avatar">
+                <svg viewBox="0 0 80 80" class="avatar-svg"><circle cx="40" cy="40" r="40" fill="#E8FBF0"/><circle cx="40" cy="30" r="13" fill="#00684A"/><path d="M18 68c6-14 14-18 22-18s16 4 22 18" fill="#00684A"/><path d="M28 38c2-4 6-6 12-6s10 2 12 6" fill="none" stroke="#00684A" stroke-width="2"/></svg>
+                <span>Female</span>
+              </button>
+              <button type="button" class="avatar-option" data-avatar="student" aria-label="Student avatar">
+                <svg viewBox="0 0 80 80" class="avatar-svg"><circle cx="40" cy="40" r="40" fill="#E8FBF0"/><circle cx="40" cy="32" r="12" fill="#00684A"/><path d="M18 70c4-14 14-20 22-20s18 6 22 20" fill="#00684A"/><rect x="22" y="22" width="36" height="8" rx="2" fill="#001E2B"/><path d="M40 14L52 22H28z" fill="#001E2B"/></svg>
+                <span>Student</span>
+              </button>
+            </div>
+          </div>
+          <div class="profile-danger-zone">
+            <button type="button" id="delete-account-btn" class="btn-danger">Delete Account</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Delete Account Confirmation Modal -->
+  <div id="delete-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
+    <div class="modal-overlay" id="delete-modal-overlay"></div>
+    <div class="modal-card">
+      <h2 id="delete-modal-title" class="modal-title">Are you sure?</h2>
+      <p class="modal-text">This action cannot be undone and will delete all your tracked products.</p>
+      <div class="modal-actions">
+        <button type="button" id="delete-modal-cancel" class="btn-modal-cancel">Cancel</button>
+        <button type="button" id="delete-modal-confirm" class="btn-modal-danger">Yes, Delete My Account</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In — PriceWatch</title>
+  <link rel="stylesheet" href="auth.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-brand">
+      <div class="auth-logo">
+        <div class="auth-logo-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
+          </svg>
+        </div>
+        <h1>PriceWatch</h1>
+      </div>
+      <p>Enterprise price tracking platform</p>
+    </div>
+
+    <div class="auth-card">
+      <div class="auth-tabs" role="tablist">
+        <button type="button" class="auth-tab active" data-tab="login" role="tab" aria-selected="true">Sign In</button>
+        <button type="button" class="auth-tab" data-tab="register" role="tab" aria-selected="false">Create Account</button>
+      </div>
+
+      <!-- Login Panel -->
+      <div id="login-panel" class="auth-panel active">
+        <!-- Standard login -->
+        <div id="login-standard">
+          <form id="login-form" novalidate>
+            <div class="form-group">
+              <label for="login-email">Email</label>
+              <input type="email" id="login-email" placeholder="you@company.com" autocomplete="email" required>
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <div class="password-field">
+                <input type="password" id="login-password" placeholder="Enter your password" autocomplete="current-password" required>
+                <button type="button" class="password-toggle" data-target="login-password" aria-label="Toggle password visibility">
+                  <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                </button>
+              </div>
+            </div>
+            <button type="submit" class="btn-primary" id="login-submit">Sign In</button>
+          </form>
+
+          <div class="auth-divider">or</div>
+          <div id="google-btn-login" class="google-btn-container"></div>
+        </div>
+
+        <!-- Google finalize (new users) -->
+        <div id="google-finalize" class="hidden">
+          <p class="panel-heading">
+            Google email verified.<br>
+            Complete your account for <strong id="finalize-email-display"></strong>
+          </p>
+          <div class="form-group">
+            <label for="finalize-username">Username</label>
+            <input type="text" id="finalize-username" placeholder="Choose a username" autocomplete="username" minlength="3" required>
+          </div>
+          <div class="form-group">
+            <label for="finalize-password">Password</label>
+            <div class="password-field">
+              <input type="password" id="finalize-password" placeholder="Minimum 8 characters" autocomplete="new-password" minlength="8" required>
+              <button type="button" class="password-toggle" data-target="finalize-password" aria-label="Toggle password visibility">
+                <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="finalize-confirm">Confirm Password</label>
+            <div class="password-field">
+              <input type="password" id="finalize-confirm" placeholder="Re-enter password" autocomplete="new-password" required>
+              <button type="button" class="password-toggle" data-target="finalize-confirm" aria-label="Toggle password visibility">
+                <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+              </button>
+            </div>
+          </div>
+          <button type="button" class="btn-primary" id="complete-account-btn">Complete Account</button>
+        </div>
+      </div>
+
+      <!-- Register Panel (Google only) -->
+      <div id="register-panel" class="auth-panel">
+        <p class="panel-heading">Create your account securely with Google</p>
+        <div id="google-btn-register" class="google-btn-container"></div>
+      </div>
+
+      <div id="auth-message" class="auth-message" role="alert"></div>
+    </div>
+
+    <p class="auth-footer">
+      By continuing, you agree to PriceWatch's Terms of Service and Privacy Policy.
+    </p>
+  </div>
+
+  <script src="auth.js"></script>
+</body>
+</html>
