@@ -1,0 +1,31 @@
+name: Automated Price Scraper
+
+on:
+  schedule:
+    # This runs the script at the top of every hour
+    - cron: '0 * * * *'
+  workflow_dispatch: # Allows you to click a "Run" button manually on GitHub
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          cd scraper
+          pip install -r requirements.txt
+
+      - name: Run Scraper
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+        run: |
+          cd scraper
+          python scraper.py
