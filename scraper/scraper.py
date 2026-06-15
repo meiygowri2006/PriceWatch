@@ -12,7 +12,6 @@ from requests.exceptions import RequestException
 
 from database import get_products_collection, verify_connection
 
-SCRAPE_INTERVAL_SECONDS = 3600
 REQUEST_TIMEOUT_SECONDS = 15
 
 HEADERS = {
@@ -289,24 +288,11 @@ def run_scrape_cycle() -> None:
     print(f"Skipped: {summary['skipped']}")
 
 
-def main() -> None:
-    print("🚀 PriceWatch scraper worker started.")
-    print(f"Scrape interval: {SCRAPE_INTERVAL_SECONDS} seconds ({SCRAPE_INTERVAL_SECONDS // 3600} hour(s))\n")
-
-    while True:
-        try:
-            run_scrape_cycle()
-        except Exception as exc:
-            print(f"🔴 Critical error in scrape loop: {exc}")
-            traceback.print_exc()
-
-        print(f"\n⏳ Sleeping for {SCRAPE_INTERVAL_SECONDS} seconds before next cycle...\n")
-        time.sleep(SCRAPE_INTERVAL_SECONDS)
+def main() -> int:
+    print("🚀 PriceWatch scraper started.\n")
+    run_scrape_cycle()
+    return 0
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except KeyboardInterrupt:
-        print("\n🛑 Scraper stopped by user.")
-        sys.exit(0)
+    sys.exit(main())
