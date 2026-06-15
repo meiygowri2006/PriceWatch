@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://pricewatch-api.onrender.com';
+const API_BASE_URL = 'https://pricewatch-2wsu.onrender.com';
 const TOKEN_KEY = 'pricewatch_token';
 
 const trackForm = document.getElementById('track-form');
